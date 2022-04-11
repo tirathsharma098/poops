@@ -1,0 +1,19 @@
+<% layout('/boilerplate/main.ejs') -%>
+  
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card">
+        <div class="card-body" style="width: 400px;">
+            <div class="card-text"><b>Status : </b><%= status %>, <%= message %>  </div>
+        </div>
+    </div>
+</div>
+
+<!-- <% if(message!=undefined && message!='' && message && message!= false){ %>
+    <script>    
+      function callmsg(){
+        window.alert("<%= message %>") 
+      }
+      window.onload = callmsg;
+    </script>
+  <% } %>  -->

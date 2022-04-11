@@ -1,0 +1,32 @@
+<% layout('/boilerplate/main.ejs') -%> 
+
+
+
+
+<div class="container mb-3">
+
+<% for(let portal of allPortals){ %>
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-8 offset-sm-2">
+        <div class="card mt-3">
+
+          <img src="<%= portal.portalImage %>" alt="Portal Image Will apear here" class="card-img-top" style="height: 150px;">
+          <div class="card-body">
+            <h5 class="card-title"> <%= portal.portalName %> </h5>
+            <p class="card-text"> <%= portal.portalAbout %>  </p>
+
+            <form action="/portals/search" method="post">
+              <input type="text" name="portalName" value="<%= portal.portalName %>" hidden>
+              <button type="submit" class="btn btn-primary">Go to <%= portal.portalName %></button>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+<% } %> 
+
+
+</div>

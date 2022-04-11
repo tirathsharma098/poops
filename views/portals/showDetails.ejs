@@ -1,0 +1,130 @@
+<% layout('/boilerplate/main.ejs') -%> 
+<link rel="stylesheet" href="/css/starRating.css">
+<style>
+   /* width */
+.card-details::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+.card-details::-webkit-scrollbar-track {
+  background: #f4f43a; 
+}
+ 
+/* Handle */
+.card-details::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.card-details::-webkit-scrollbar-thumb:hover {
+  background: blue; 
+}
+    </style>
+
+<div class="container-lg my-3">
+    <div class="row">
+        <div class="col-sm-6 me-sm-3 position-relative">
+            <div class="card vh-100 overflow-auto card-details">
+                <img src="<%= portalDetails.portalImage %>" class="card-img-top" alt="<%= portalDetails.portalName %>">
+                <div class="card-body">
+                <p class="card-text"><small class="text-muted"> <i>by </i> <%= portalDetails.admin.username %>  </small></p>
+                <h5 class="card-title"><%= portalDetails.portalName %> </h5>
+                <p class="card-text"><%= portalDetails.portalAbout %> </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Pirce : RS</b> <%= portalDetails.portalPrice %> </li>
+                </ul>
+                <div class="card-body">
+                <div class="">
+                    <b>Location : </b>
+                    <p class="text-muted">
+                        <%= portalDetails.portalAddress.street %>, <%= portalDetails.portalAddress.city %>, <%= portalDetails.portalAddress.state %>
+                    </p>
+                </div>              
+                </div>
+                <div class="card-body text-center">
+                    <form action="/portals/show" method="post" class="d-inline">
+                        <input type="text" name="portalName" value="<%= portalDetails.portalName %>" hidden>
+                        <input type="text" name="portalAddress[country]" value="<%= portalDetails.portalAddress.country %>" hidden>
+                        <input type="text" name="portalAddress[state]" value="<%= portalDetails.portalAddress.state %>" hidden>
+                        <input type="text" name="portalAddress[city]" value="<%= portalDetails.portalAddress.city %>" hidden>
+                        <button class="btn btn-info">Go Back</button>
+                    </form>
+                    <% if(currentUser && currentUser._id.equals(portalDetails.admin._id)){ %> 
+                    <form action="/portals/details/edit" method="post" class="d-inline">
+                        <input type="text" name="portalID" value="<%= portalDetails._id %>" hidden>
+                        <button class="btn btn-warning">Edit Portal</button>
+                    </form>
+                    <form action="/portals/details?_method=DELETE" method="post" class="d-inline">
+                        <input type="text" name="portalID" value="<%= portalDetails._id %>" hidden>
+                        <input type="text" name="portalAddress[country]" value="<%= portalDetails.portalAddress.country %>" hidden>
+                        <input type="text" name="portalAddress[state]" value="<%= portalDetails.portalAddress.state %>" hidden>
+                        <input type="text" name="portalAddress[city]" value="<%= portalDetails.portalAddress.city %>" hidden>
+                        <input type="text" name="portalName" value="<%= portalDetails.portalName %>" hidden>
+                        <button class="btn btn-danger">Delete Portal</button>
+                    </form>
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5 my-3">
+            <% if(currentUser){ %> 
+            <div>
+                <h3>Leave a Review</h3>
+                <form action="/portals/reviews" method="post" class="needs-validation" novalidate>
+                    <input type="text" name="portalID" value="<%= portalDetails._id %>" hidden required>
+                    <div class="mb-3">
+                        <fieldset class="starability-basic">
+                            <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="1" checked aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="rating" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="rating" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="rating" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="rating" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="rating" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                          </fieldset>
+                    </div>
+                    <div class="mb-3">
+                        <label for="review" class="form-label">Comment : </label>
+                        <textarea type="text" name="review" id="review" rows="6" class="form-control" placeholder="What is your opinion about this portal" required></textarea>
+                        <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                    </div>
+                    <button class="btn btn-success">Create Review</button>
+                </form>
+            </div>
+            <% } %> 
+
+            <div>
+                <% if(allReviews){ for(review of allReviews){ %>
+                    <div class="card my-3">
+                        <div class="card-body">
+                          <p class="starability-result" data-rating="<%= review.rating %>">
+                            Rated: <%= review.rating %> stars
+                          </p>
+                          <h6 class="card-subtitle mb-2 text-muted"> <i>by </i> <%= review.admin.username %>  </h6>
+                          <p class="card-text"><%= review.review %></p>
+                        </div>
+                        <% if(currentUser && currentUser._id.equals(review.admin._id)){ %>
+                        <div class="card-body">
+                            <form action="/portals/reviews?_method=DELETE" method="post" class="d-inline">
+                                <input type="text" name="portalID" value="<%= portalDetails._id %>" hidden>
+                                <input type="text" name="reviewID" value="<%= review._id %>" hidden>
+                                <button class="btn btn-danger">Delete Review</button>
+                            </form>
+                        </div>
+                        <% } %> 
+                      </div>
+                <% }} %> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/validateForm.js"></script>

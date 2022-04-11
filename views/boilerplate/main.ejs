@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poops</title>
+    <!-- Bootstrap CSS file -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body class="d-flex flex-column vh-100">
+    <!-- Navigation Bar Here -->
+    <%- include('../partials/nav.ejs') %>
+
+    <!-- Action Response Message or Flash Message comes here -->
+    <%- include('../partials/actionResponse.ejs') %>
+
+    <!-- Appending body  -->
+    <%- body -%> 
+
+    <!-- Footer Includes Here -->
+    <%- include('../partials/footer.ejs') %> 
+
+    <!-- Bootstrap JS file -->
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

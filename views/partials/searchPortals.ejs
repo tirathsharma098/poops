@@ -1,0 +1,24 @@
+
+<script>
+    let countryElement = document.querySelector('#country')
+    let stateElement = document.querySelector('#state');
+    let cityElement = document.querySelector('#city');
+
+    countryElement.addEventListener('click', e => {
+        // countrySelected = e.target.value;
+        // if(!countrySelected){
+        //     console.log('not selected any country');
+        //     return;
+        // }
+        // console.log(countrySelected);
+        // let familiarState = [];
+         let tempCountry = '<%-countryData%>';
+         console.log(tempCountry);
+        tempCountry = tempCountry.map(country => {if(country.name==countrySelected){return country.states.name}});
+       // let countryData = JSON.parse(tempCountry);
+        console.log(tempCountry);
+        // for(let country of countryData){
+        //     console.log(country.name);
+        // }
+    })
+</script>

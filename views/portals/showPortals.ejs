@@ -1,0 +1,31 @@
+<% layout('/boilerplate/main.ejs') -%>
+
+<div class="container my-3 d-flex flex-wrap">
+    <% for(let portal of releventPortals){ %> 
+        <div class="card m-3" style="width: 18rem;">
+            <img src="<%= portal.portalImage %>" class="card-img-top" style="height: 100px;" alt="<%= portal.portalName %>">
+            <div class="card-body">
+              <h5 class="card-title"><%= portal.portalName %> </h5>
+              <p class="card-text"><%= portal.portalAbout %> </p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><b>Pirce : RS</b> <%= portal.portalPrice %> </li>
+            </ul>
+            <div class="card-body">
+              <div class="">
+                <b>Location : </b>
+                <p class="text-muted">
+                    <%= portal.portalAddress.street %>, <%= portal.portalAddress.city %>, <%= portal.portalAddress.state %>
+                </p>
+              </div>              
+            </div>
+            <div class="card-body text-center">
+                <form action="/portals/details" method="post" class="d-flex justify-content-center">
+                    <input type="text" name="portalID" value="<%= portal._id %>" hidden>
+                    <button class="btn btn-primary">Get In</button>
+                </form>
+            </div>
+          </div>
+    <% } %> 
+</div>
+

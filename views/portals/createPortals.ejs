@@ -1,0 +1,93 @@
+<% layout('/boilerplate/main.ejs') -%> 
+
+<div class="container my-3">
+    <div class="col-md-6 offset-md-3">
+        <h2 class="text-primary">Create New Public Portal</h2>
+    <form action="/portals/create" class="needs-validation" method="post" novalidate>
+        <div class="mb-3">
+            <label for="portalName" class="form-label">Name</label>
+            
+            <select placeholder="Select Portal" type="text" name="portalName" class="form-select" id="portalName" required>
+                <option value="" hidden disabled selected>Select Any Portal</option>
+                <% for(let portal of allPublicPortals){ %>
+                    <option value="<%= portal %>"> <%= portal %> </option>
+                <% } %> 
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="portalAbout" class="form-label">About Portal</label>
+            <input placeholder="What about is this portal" type="text" name="portalAbout" id="portalAbout" class="form-control" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="portalImage" class="form-label">Image of Portal</label>
+            <input placeholder="Add some Image of portal" type="text" name="portalImage" id="portalImage" class="form-control" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="portalPrice" class="form-label">Portal Price</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input placeholder="Did this public portal cost any price" type="number" min="0" max="999" name="portalPrice" id="portalPrice" class="form-control" value="0" required>
+            </div>
+            
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <h5>Mention Location</h5>
+        <div class="mb-3">
+            <label for="country" class="form-label">Portal Country</label>
+            <select type="text" name="portalAddress[country]" id="country" class="form-select" required>
+                <option hidden selected disabled value="">Select Country</option>
+                <% for(let element of allCountryArray){ %>
+                    <option value="<%= element.name %>"> <%= element.name %>  </option>
+                <% } %> 
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="state" class="form-label">Portal State</label>
+            <select placeholder="State" type="text" name="portalAddress[state]"  id="state" class="form-select" required>
+                <option hidden selected disabled>Select Your State</option>
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">Portal City</label>
+            <select placeholder="In Which city this portal is?" type="text"  name="portalAddress[city]" id="city" class="form-select" required>
+                <option hidden selected disabled>Select Your City</option>               
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="street" class="form-label">Portal Street</label>
+            <input placeholder="Add Street Addreess of this portal that you know" type="text" name="portalAddress[street]" id="street" class="form-control" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <button class="btn btn-success">Create Portal</button>
+    </form>
+    </div>
+</div>
+
+<script src="/js/validateForm.js"></script>
+<script src="/js/findLocationBundle.js"></script>
+
+    <!-- Prevent form resubmission here -->
+    <%- include('../partials/preventResubmit.ejs') %> 
+

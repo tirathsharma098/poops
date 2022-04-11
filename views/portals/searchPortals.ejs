@@ -1,0 +1,52 @@
+<% layout('/boilerplate/main.ejs') -%> 
+
+<div class="container my-3">
+    <div class="col-6 offset-3">
+        <h1>Enter Details to Search Portals</h1>
+    <form action="/portals/show" method="post" class="needs-validation" novalidate>
+        <div class="mb-3">
+            <label for="portalName" class="form-label">Portal Name : </label>
+            <input type="text" name="portalName" id="portalName" class="form-control" readonly value="<%= portalName %>" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="country" class="form-label">Country : </label>
+            <select type="text" name="portalAddress[country]" id="country" class="form-select" required>
+                <option hidden selected disabled value="">Select Country</option>
+                <% for(let element of allCountryArray){ %>
+                    <option value="<%= element.name %>"> <%= element.name %>  </option>
+                <% } %> 
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="state" class="form-label">State : </label>
+            <select type="text" name="portalAddress[state]" id="state" class="form-select" required>
+                <option hidden selected disabled>Select Your State</option>
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="city" class="form-label">City : </label>
+            <select name="portalAddress[city]" id="city" class="form-select" required>
+                <option hidden selected disabled>Select Your City</option>
+            </select>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+</div>
+
+<script src="/js/bundleSearchPortal.js"></script>
+<script src="/js/findLocationBundle.js"></script>
+    <!-- Prevent form resubmission here -->
+    <%- include('../partials/preventResubmit.ejs') %> 
